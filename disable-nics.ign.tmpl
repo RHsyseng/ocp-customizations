@@ -1,0 +1,24 @@
+{
+  "ignition": {
+    "version": "2.2.0"
+  },
+  "systemd": {
+    "units": [{
+        "name": "disable-nics.service",
+        "enabled": true,
+        "contents": "[Unit]\nDescription=Disable all non-primary NICs\nAfter=NetworkManager-wait-online.service\n[Service]\nType=oneshot\nExecStart=/bin/sh /var/disable-nics.sh\nExecStartPost=/usr/bin/systemctl disable disable-nics.service\n[Install]\nWantedBy=multi-user.target"
+     }]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/var/disable-nics.sh",
+        "filesystem": "root",
+        "mode": 484,
+        "contents": {
+          "source": "data:text/plain;charset=utf-8;base64,${SCRIPT_BASE64}"
+        }
+      }
+    ]
+  }
+}

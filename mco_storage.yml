@@ -1,0 +1,46 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: cnv
+  name: 00-configure-storage
+spec:
+  config:
+    ignition:
+      version: 2.2.0
+    systemd:
+      units:
+        - contents: |
+            [Unit]
+            Description=create datastore mount
+            [Service]
+            Type=oneshot
+            ExecStart=/bin/mkdir -p /var/mnt/datastore
+            [Install]
+            WantedBy=multi-user.target
+          name: create-datastore.service
+          enabled: true
+        - contents: |
+            [Unit]
+            Description=Set SELinux chcon for hostpath-provisioner
+            Before=kubelet.service
+            After=var-mnt-datastore.mount
+            [Service]
+            ExecStart=/usr/bin/chcon -Rt container_file_t /var/mnt/datastore
+            [Install]
+            WantedBy=multi-user.target
+          name: selinux-hostpath.service
+          enabled: true
+        - contents: |
+            [Unit]
+            Description=datastore mount
+            After=create-datastore.service
+            [Mount]
+            What=/dev/sda5
+            Where=/var/mnt/datastore
+            Type=xfs
+            Options=defaults
+            [Install]
+            WantedBy=multi-user.target
+          name: var-mnt-datastore.mount
+          enabled: true

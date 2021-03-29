@@ -1,0 +1,9 @@
+apiVersion: hostpathprovisioner.kubevirt.io/v1alpha1
+kind: HostPathProvisioner
+metadata:
+  name: hostpath-provisioner
+spec:
+  imagePullPolicy: IfNotPresent
+  pathConfig:
+    path: "/var/mnt/datastore" #The path of the directory on the node
+    useNamingPrefix: "true" #Use the name of the PVC bound to the created PV as part of the directory name.

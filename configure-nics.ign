@@ -1,0 +1,37 @@
+{
+  "ignition": {
+    "config": {},
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "2.2.0"
+  },
+  "networkd": {},
+  "passwd": {},
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "overwrite": false,
+        "path": "/etc/systemd/network/99-default.link",
+        "contents": {
+          "source": "data:text/plain;charset=utf-8;base64,W0xpbmtdCk5hbWVQb2xpY3k9bWFjCk1BQ0FkZHJlc3NQb2xpY3k9cGVyc2lzdGVudAo=",
+          "verification": {}
+        },
+        "mode": 420
+      },
+      {
+        "filesystem": "root",
+        "overwrite": false,
+        "path": "/etc/NetworkManager/conf.d/10-dhcp-config.conf",
+        "contents": {
+          "source": "data:text/plain;charset=utf-8;base64,W21haW5dCm5vLWF1dG8tZGVmYXVsdD0qCmRoY3A9ZGhjbGllbnQK",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {}
+}

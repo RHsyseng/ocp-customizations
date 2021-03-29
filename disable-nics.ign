@@ -1,0 +1,24 @@
+{
+  "ignition": {
+    "version": "2.2.0"
+  },
+  "systemd": {
+    "units": [{
+        "name": "disable-nics.service",
+        "enabled": true,
+        "contents": "[Unit]\nDescription=Disable all non-primary NICs\nAfter=NetworkManager-wait-online.service\n[Service]\nType=oneshot\nExecStart=/bin/sh /var/disable-nics.sh\nExecStartPost=/usr/bin/systemctl disable disable-nics.service\n[Install]\nWantedBy=multi-user.target"
+     }]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/var/disable-nics.sh",
+        "filesystem": "root",
+        "mode": 484,
+        "contents": {
+          "source": "data:text/plain;charset=utf-8;base64,IyEvdXNyL2Jpbi9lbnYgYmFzaAoKc2V0IC1leAoKaWYgW1sgLWYgL2Jvb3QvbWFjX2FkZHJlc3NlcyBdXTsgdGhlbgogIHByaW1hcnlfbWFjPSQoY2F0IC9ib290L21hY19hZGRyZXNzZXMgfCBhd2sgLUY9ICcvUFJJTUFSWV9NQUMvIHtwcmludCAkMn0nKQogIG5tY2xpIGRldmljZSBzdGF0dXMgfCBncmVwIC12IGRpc2Nvbm5lY3RlZCB8IGdyZXAgY29ubmVjdGVkIHwgYXdrICcvZXRoZXJuZXQvIHtwcmludCAkMX0nCiAgZm9yIGRldiBpbiAkKG5tY2xpIGRldmljZSBzdGF0dXMgfCBncmVwIC12IGRpc2Nvbm5lY3RlZCB8IGdyZXAgY29ubmVjdGVkIHwgYXdrICcvZXRoZXJuZXQvIHtwcmludCAkMX0nKTsgZG8KICAgIGRldl9tYWM9JChubWNsaSAtZyBHRU5FUkFMLkhXQUREUiBkZXYgc2hvdyAkZGV2IHwgc2VkIC1lICdzL1xcLy9nJyB8IHRyICdbQS1aXScgJ1thLXpdJykKICAgIGlmIFtbICRkZXZfbWFjICE9ICRwcmltYXJ5X21hYyBdXTsgdGhlbgogICAgICAgIGVjaG8gImRpc2FibGluZyAkZGV2IgogICAgICAgIHByb2ZpbGU9JChubWNsaSAtZyBHRU5FUkFMLkNPTk5FQ1RJT04gZGV2IHNob3cgJGRldikKICAgICAgICBlY2hvICRwcm9maWxlCiAgICAgICAgbm1jbGkgY29ubiBkb3duICIkcHJvZmlsZSIKICAgICAgICBubWNsaSBjb25uIG1vZCAiJHByb2ZpbGUiIGNvbm5lY3Rpb24uYXV0b2Nvbm5lY3Qgbm8KICAgIGZpCiAgIGRvbmUKZWxzZQogIGVjaG8gIm5vIG1hYyBhZGRyZXNzIGZpbGUgZm91bmQiCmZpCg=="
+        }
+      }
+    ]
+  }
+}
